@@ -80,6 +80,10 @@ schedule: каждый день 10:00 Europe/Moscow (cron 0 7 * * * UTC)
    /opt/pw-browsers/chromium-XXXX, либо в крайнем случае:
      export PLAYWRIGHT_BROWSERS_PATH=/tmp/pw-browsers && python3 -m playwright install chromium-headless-shell
 
+   Шрифты (Inter, Playfair Display, JetBrains Mono) лежат в $ROOT/fonts/ — скрипты рендера
+   сами подменяют ими запросы к Google Fonts (skills/carousel-generator/local_fonts.py).
+   Headless Chromium в облаке до Google Fonts не достаёт, так что папку fonts/ не удалять.
+
    Запустить рендер:
      OUT_DIR=$ROOT/output/YYYY-MM-DD_Название_png
      mkdir -p "$OUT_DIR"

@@ -26,6 +26,9 @@ import os
 import sys
 from pathlib import Path
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from local_fonts import use_local_fonts  # noqa: E402
+
 # Дополнительные аккаунты: (handle, rubric, slug)
 ACCOUNTS = [
     ("@dengi_oleg",   "Финансы · Капитал", "dengi_oleg"),
@@ -79,6 +82,7 @@ async def render_slides(html_path: str, out_dir: str, handle: str, rubric: str, 
             device_scale_factor=2,
         )
         page = await ctx.new_page()
+        await use_local_fonts(page)
         await page.goto("file://" + os.path.abspath(tmp_path), wait_until="networkidle")
         await page.wait_for_timeout(2500)
         await page.evaluate("document.fonts.ready")

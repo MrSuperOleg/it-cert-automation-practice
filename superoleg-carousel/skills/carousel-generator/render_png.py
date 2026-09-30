@@ -24,6 +24,9 @@ import os
 import sys
 from pathlib import Path
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from local_fonts import use_local_fonts  # noqa: E402
+
 
 async def render(html_path: str, out_dir: str | None = None) -> str:
     from playwright.async_api import async_playwright
@@ -42,6 +45,7 @@ async def render(html_path: str, out_dir: str | None = None) -> str:
             device_scale_factor=2,
         )
         page = await ctx.new_page()
+        await use_local_fonts(page)
         await page.goto("file://" + html_path, wait_until="networkidle")
         # Give fonts a beat to fully load
         await page.wait_for_timeout(2500)
